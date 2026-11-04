@@ -23,8 +23,8 @@ export default function Home() {
           {[58, 70, 82, 94].map((l) => (<div key={l} className="absolute inset-y-0 border-l border-slate" style={{ left: `${l}%` }} />))}
         </div>
         <div className="wrap relative py-28 lg:py-44">
-          <p className="kicker reveal mb-10">{company.heroKicker}</p>
-          <h1 className="serif reveal max-w-[14ch] text-[length:var(--text-display)]">Вирішуємо проблеми будь якої складності</h1>
+          <p className="kicker reveal mb-10">Адвокатська компанія · {company.addressCity}</p>
+          <h1 className="serif reveal max-w-[14ch] text-[length:var(--text-display)]">Правова допомога для бізнесу та населення</h1>
           <p className="reveal mt-10 max-w-xl text-lg text-mist">{company.heroLead}</p>
           <div className="reveal mt-12 flex flex-wrap gap-4">
             <a href="#konsultatsiia" className="btn btn-solid">Безкоштовна консультація</a>
@@ -79,7 +79,7 @@ export default function Home() {
       <section className="on-dark bg-graphite text-ivory">
         <div className="wrap grid gap-12 py-24 lg:grid-cols-12 lg:py-32">
           <div className="lg:col-span-5"><p className="kicker mb-6">Принципи роботи</p>
-            <ul className="serif text-[length:var(--text-h2)]">{about.principles.map((p) => (<li key={p} className="rule py-3 capitalize">{p}</li>))}</ul></div>
+            <ul className="serif text-[length:var(--text-h2)]">{about.principles.map((p) => (<li key={p} className="rule py-3 first-letter:uppercase">{p}</li>))}</ul></div>
           <div className="lg:col-span-7 lg:pl-12">
             <p className="serif text-[length:var(--text-h3)] leading-snug">{about.paragraphs[4]}</p>
             <blockquote className="mt-10 border-l border-brass pl-8 text-mist">“{about.quote}”</blockquote>
