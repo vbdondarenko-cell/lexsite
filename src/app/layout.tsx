@@ -10,7 +10,7 @@ const sans = Manrope({ subsets: ["cyrillic", "latin"], variable: "--font-manrope
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: { default: "LEX — адвокатська компанія, Черкаси", template: "%s | LEX" },
+  title: { default: "Адвокат Черкаси — адвокатська компанія LEX", template: "%s | LEX" },
   description: "Правові послуги для населення і бізнесу в Черкасах. Безкоштовна консультація.",
   openGraph: { siteName: "LEX", locale: "uk_UA", type: "website" },
 };

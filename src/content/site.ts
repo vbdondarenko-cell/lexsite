@@ -19,8 +19,8 @@ export const company = {
     { display: "+38 (095) 837 25 15", tel: "+380958372515", person: "Андрій Юрійович" },
     { display: "+38 (096) 062 05 73", tel: "+380960620573", person: "Олег Борисович" },
   ],
-  // Decoded from reversed strings on the legacy page. UNCONFIRMED by client.
-  emailsUnconfirmed: ["advokat_davydiuk@ukr.net", "ex_lege@i.ua"],
+  // Confirmed by client 2026-11-11 (mail is forwarded to lex.ck.ua@gmail.com).
+  email: "ex_lege@i.ua",
   social: {
     telegram: "https://t.me/@UaLexCk", // as on legacy site; looks malformed ("@" in path) — to confirm
     facebook: "https://www.facebook.com/profile.php?id=61583033188253",

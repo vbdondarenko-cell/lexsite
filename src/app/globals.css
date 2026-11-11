@@ -80,6 +80,35 @@ body {
 .row-link:hover { padding-left: 0.75rem; color: var(--color-brass-deep); }
 .on-dark .row-link:hover { color: var(--color-brass); }
 
+/* Depth / "immersion" layers (match the Figma presentation cards) */
+.hero-stage { position: relative; overflow: hidden; isolation: isolate; }
+.glow { position: absolute; border-radius: 9999px; filter: blur(110px); pointer-events: none; z-index: -1; }
+.floor {
+  position: absolute; left: -25%; right: -25%; top: 58%; height: 75%; z-index: -1; pointer-events: none;
+  transform-origin: 50% 0; transform: perspective(520px) rotateX(64deg);
+  background-image:
+    linear-gradient(rgba(52, 229, 194, 0.4) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(52, 229, 194, 0.4) 1px, transparent 1px);
+  background-size: 90px 90px;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 45%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 45%, transparent 100%);
+}
+.glass {
+  background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.16); border-radius: 1.75rem;
+  -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px);
+  box-shadow: 0 40px 70px -20px rgba(0, 0, 0, 0.6), 0 0 70px rgba(52, 229, 194, 0.12);
+}
+.tile {
+  background: rgba(255, 255, 255, 0.055); border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 1.25rem;
+  box-shadow: 0 24px 40px -14px rgba(0, 0, 0, 0.5);
+  transition: transform .3s ease, border-color .3s ease, background-color .3s ease;
+}
+.tile:hover { transform: translateY(-4px); border-color: var(--color-brass); background: rgba(255, 255, 255, 0.09); }
+@media (min-width: 1024px) {
+  .tilt { transform: perspective(1400px) rotateY(-9deg) rotateX(4deg); transition: transform .5s ease; }
+  .tilt:hover { transform: perspective(1400px) rotateY(0) rotateX(0); }
+}
+
 /* Form */
 .field { display: block; }
 .field > span { display: block; font-size: .75rem; letter-spacing: .16em; text-transform: uppercase; margin-bottom: .5rem; }
