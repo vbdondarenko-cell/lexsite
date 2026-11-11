@@ -41,10 +41,17 @@ describe("content completeness vs legacy site", () => {
     const strings = [
       ...about.paragraphs, about.quote, about.abroad, about.closing,
       ...stats.flatMap((s) => [s.value, s.label]),
-      company.phones[0]!.display, company.phones[1]!.display,
-      company.phones[0]!.person, company.phones[1]!.person, company.address,
+      // phones[0] is the new main number from the client; the legacy numbers follow it.
+      company.phones[1]!.display, company.phones[2]!.display,
+      company.phones[1]!.person, company.phones[2]!.person,
     ];
     expect(strings.filter((s) => !inLegacy(s))).toEqual([]);
+  });
+
+  it("contacts updated by the client on 2026-11-11 are in place", () => {
+    expect(company.phones[0]!.tel).toBe("+380934880595");
+    expect(company.address).toBe("18006, м. Черкаси, бул. Шевченка, 389, оф. 22");
+    expect(company.hours.map((h) => h.time)).toEqual(["10:00 - 19:00", "11:00 - 15:00"]);
   });
 
   it("slugs are unique per category", () => {

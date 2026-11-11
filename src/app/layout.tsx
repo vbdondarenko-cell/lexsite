@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Inter } from "next/font/google";
+import { Unbounded, Manrope } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { legalServiceJsonLd, siteUrl } from "@/lib/seo";
 
-const serif = Cormorant_Garamond({ subsets: ["cyrillic", "latin"], weight: ["400", "500", "600"], variable: "--font-cormorant", display: "swap" });
-const sans = Inter({ subsets: ["cyrillic", "latin"], variable: "--font-inter", display: "swap" });
+const serif = Unbounded({ subsets: ["cyrillic", "latin"], weight: ["500", "600"], variable: "--font-unbounded", display: "swap" });
+const sans = Manrope({ subsets: ["cyrillic", "latin"], variable: "--font-manrope", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
