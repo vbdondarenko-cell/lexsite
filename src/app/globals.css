@@ -2,28 +2,27 @@
 
 /* LEX — Quiet Authority. Design tokens (mirrored in docs/DESIGN_TOKENS.md). */
 @theme {
-  /* Ink & mint palette (matches the Figma presentation cards). Token names are
-     kept from the original system so components don't change:
-     graphite = ink black, slate = deep teal, ivory = soft white,
-     brass = mint accent on dark, brass-deep = dark teal accent on light (AA). */
-  --color-graphite: #05080c;
-  --color-slate: #17383a;
-  --color-ivory: #f2f6f5;
-  --color-brass: #34e5c2;
+  /* Olive & flesh palette. Token names are kept from the original system so
+     components don't change: graphite = deep olive-black, slate = olive,
+     ivory = cream, brass = flesh/skin tone accent, mist = muted sand. */
+  --color-graphite: #181c12;
+  --color-slate: #2f3822;
+  --color-ivory: #f4e8da;
+  --color-brass: #e3b999;
   --color-white: #ffffff;
   /* Derived neutrals */
-  --color-ivory-deep: #e3ecea;
-  --color-mist: #9fb4b0;
-  --color-brass-deep: #0a6f64;
+  --color-ivory-deep: #e8d6c3;
+  --color-mist: #c2b9a4;
+  --color-brass-deep: #7a4f33;
 
-  --font-serif: var(--font-unbounded), "Segoe UI", system-ui, sans-serif;
+  --font-serif: var(--font-cormorant), Georgia, "Times New Roman", serif;
   --font-sans: var(--font-manrope), system-ui, -apple-system, "Segoe UI", sans-serif;
 
-  /* Unbounded is a wide face: type scale is reduced vs the old serif. */
-  --text-display: clamp(2rem, 1.2rem + 3.6vw, 4.5rem);
-  --text-h1: clamp(1.75rem, 1.2rem + 2.4vw, 3.25rem);
-  --text-h2: clamp(1.5rem, 1.15rem + 1.4vw, 2.25rem);
-  --text-h3: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+  /* Classic serif: larger scale than the wide display face used before. */
+  --text-display: clamp(2.75rem, 1.6rem + 4.6vw, 5.5rem);
+  --text-h1: clamp(2.25rem, 1.5rem + 3vw, 4rem);
+  --text-h2: clamp(1.75rem, 1.3rem + 1.6vw, 2.75rem);
+  --text-h3: clamp(1.4rem, 1.2rem + 0.6vw, 1.8rem);
 }
 
 :root {
@@ -43,7 +42,7 @@ body {
 }
 
 .wrap { width: 100%; max-width: 88rem; margin-inline: auto; padding-inline: var(--gutter); }
-.serif { font-family: var(--font-serif); font-weight: 500; letter-spacing: -0.02em; line-height: 1.14; }
+.serif { font-family: var(--font-serif); font-weight: 600; letter-spacing: -0.005em; line-height: 1.08; font-variant-numeric: lining-nums; }
 .kicker {
   font-size: 0.75rem; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500;
   color: var(--color-brass-deep);
@@ -83,27 +82,35 @@ body {
 /* Depth / "immersion" layers (match the Figma presentation cards) */
 .hero-stage { position: relative; overflow: hidden; isolation: isolate; }
 .glow { position: absolute; border-radius: 9999px; filter: blur(110px); pointer-events: none; z-index: -1; }
+/* Marble checkerboard floor in perspective (olive + flesh) */
 .floor {
-  position: absolute; left: -25%; right: -25%; top: 58%; height: 75%; z-index: -1; pointer-events: none;
-  transform-origin: 50% 0; transform: perspective(520px) rotateX(64deg);
-  background-image:
-    linear-gradient(rgba(52, 229, 194, 0.4) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(52, 229, 194, 0.4) 1px, transparent 1px);
-  background-size: 90px 90px;
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 45%, transparent 100%);
-  mask-image: linear-gradient(to bottom, transparent 0%, #000 45%, transparent 100%);
+  position: absolute; left: -30%; right: -30%; top: 56%; height: 80%; z-index: -1; pointer-events: none;
+  transform-origin: 50% 0; transform: perspective(560px) rotateX(66deg);
+  background: repeating-conic-gradient(rgba(227, 185, 153, 0.2) 0% 25%, rgba(107, 115, 64, 0.22) 0% 50%) 0 0 / 130px 130px;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 40%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 40%, transparent 100%);
+}
+/* Fluted column receding into the distance */
+.col3d {
+  position: absolute; top: -4%; bottom: 10%; z-index: -1;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 0.55rem, rgba(0, 0, 0, 0.28) 0.55rem 0.68rem),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.7), rgba(244, 232, 218, 0.34) 30%, rgba(244, 232, 218, 0.16) 62%, rgba(0, 0, 0, 0.65));
+  transform: perspective(800px) rotateY(var(--rot, 30deg));
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 16%, #000 72%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 16%, #000 72%, transparent 100%);
 }
 .glass {
-  background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.16); border-radius: 1.75rem;
+  background: rgba(244, 232, 218, 0.07); border: 1px solid rgba(227, 185, 153, 0.28); border-radius: 1.5rem;
   -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px);
-  box-shadow: 0 40px 70px -20px rgba(0, 0, 0, 0.6), 0 0 70px rgba(52, 229, 194, 0.12);
+  box-shadow: 0 40px 70px -20px rgba(0, 0, 0, 0.65), 0 0 70px rgba(227, 185, 153, 0.1), inset 0 1px 0 rgba(244, 232, 218, 0.18);
 }
 .tile {
-  background: rgba(255, 255, 255, 0.055); border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 1.25rem;
-  box-shadow: 0 24px 40px -14px rgba(0, 0, 0, 0.5);
+  background: rgba(244, 232, 218, 0.055); border: 1px solid rgba(227, 185, 153, 0.2); border-radius: 1rem;
+  box-shadow: 0 24px 40px -14px rgba(0, 0, 0, 0.55);
   transition: transform .3s ease, border-color .3s ease, background-color .3s ease;
 }
-.tile:hover { transform: translateY(-4px); border-color: var(--color-brass); background: rgba(255, 255, 255, 0.09); }
+.tile:hover { transform: translateY(-4px); border-color: var(--color-brass); background: rgba(244, 232, 218, 0.1); }
 @media (min-width: 1024px) {
   .tilt { transform: perspective(1400px) rotateY(-9deg) rotateX(4deg); transition: transform .5s ease; }
   .tilt:hover { transform: perspective(1400px) rotateY(0) rotateX(0); }
