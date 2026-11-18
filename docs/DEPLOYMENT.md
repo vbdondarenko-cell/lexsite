@@ -8,8 +8,8 @@ npm start                                         # next start, порт 3000
 ```
 
 ## Змінні середовища (лише на сервері, не в git)
-`SITE_URL`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS`, `LEAD_TO_EMAIL`, `LEAD_FROM_EMAIL` — див. `.env.example`.
-Без SMTP форма **чесно повертає помилку 503** (заявка не вважається доставленою).
+`SITE_URL`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS`, `LEAD_TO_EMAIL`, `LEAD_FROM_EMAIL` — див. `.env.example`.
+Заявки доставляються у Telegram-бот (`TELEGRAM_*`) і/або на пошту (`SMTP_*`); достатньо одного каналу. Без жодного каналу форма **чесно повертає помилку 503** (заявка не вважається доставленою).
 
 ## Обмеження поточної реалізації
 - Rate limit — в пам'яті одного процесу. Для кількох інстансів потрібне спільне сховище.
