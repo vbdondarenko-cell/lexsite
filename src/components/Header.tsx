@@ -4,8 +4,10 @@ import { company } from "@/content/site";
 import { MobileNav } from "./MobileNav";
 
 export const navLinks = [
-  { href: "/#poslugy", label: "Категорії справ" },
   { href: "/#kontakty", label: "Контакти" },
+  { href: "/#pro-nas", label: "Про нас" },
+  { href: "/#advokat", label: "Про адвоката" },
+  { href: "/#poslugy", label: "Категорії справ" },
 ];
 
 export function Header() {

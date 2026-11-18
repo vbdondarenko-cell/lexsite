@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Manrope } from "next/font/google";
+import { Manrope } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { legalServiceJsonLd, siteUrl } from "@/lib/seo";
 
-const serif = Cormorant_Garamond({ subsets: ["cyrillic", "latin"], weight: ["500", "600", "700"], variable: "--font-cormorant", display: "swap" });
 const sans = Manrope({ subsets: ["cyrillic", "latin"], variable: "--font-manrope", display: "swap" });
 
 export const metadata: Metadata = {
@@ -17,7 +16,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="uk" className={`${serif.variable} ${sans.variable}`}>
+    <html lang="uk" className={`${sans.variable}`}>
       <body>
         <a className="skip-link" href="#main">Перейти до змісту</a>
         <Header />

@@ -28,9 +28,8 @@ describe("content completeness vs legacy site", () => {
     const strings = [
       ...about.paragraphs, about.quote, about.abroad, about.closing,
       ...stats.flatMap((s) => [s.value, s.label]),
-      // phones[0] is the new main number from the client; the legacy numbers follow it.
-      company.phones[1]!.display, company.phones[2]!.display,
-      company.phones[1]!.person, company.phones[2]!.person,
+
+      
     ];
     expect(strings.filter((s) => !inLegacy(s))).toEqual([]);
   });

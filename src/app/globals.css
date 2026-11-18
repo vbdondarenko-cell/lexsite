@@ -5,17 +5,18 @@
   /* Olive & flesh palette. Token names are kept from the original system so
      components don't change: graphite = deep olive-black, slate = olive,
      ivory = cream, brass = flesh/skin tone accent, mist = muted sand. */
-  --color-graphite: #181c12;
-  --color-slate: #2f3822;
-  --color-ivory: #f4e8da;
-  --color-brass: #e3b999;
+  --color-graphite: #0e327e;
+  --color-slate: #1a44bd;
+  --color-ivory: #ffffff;
+  --color-brass: #a9c7ff;
+  --color-sun: #ffe358;
   --color-white: #ffffff;
   /* Derived neutrals */
-  --color-ivory-deep: #e8d6c3;
-  --color-mist: #c2b9a4;
-  --color-brass-deep: #7a4f33;
+  --color-ivory-deep: #e5ecf8;
+  --color-mist: #d3e0f7;
+  --color-brass-deep: #004bc1;
 
-  --font-serif: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  --font-serif: var(--font-manrope), system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
   --font-sans: var(--font-manrope), system-ui, -apple-system, "Segoe UI", sans-serif;
 
   /* Classic serif: larger scale than the wide display face used before. */
@@ -86,7 +87,7 @@ body {
 .floor {
   position: absolute; left: -30%; right: -30%; top: 56%; height: 80%; z-index: -1; pointer-events: none;
   transform-origin: 50% 0; transform: perspective(560px) rotateX(66deg);
-  background: repeating-conic-gradient(rgba(227, 185, 153, 0.2) 0% 25%, rgba(107, 115, 64, 0.22) 0% 50%) 0 0 / 130px 130px;
+  background: repeating-conic-gradient(rgba(156, 195, 255, 0.2) 0% 25%, rgba(37, 99, 235, 0.22) 0% 50%) 0 0 / 130px 130px;
   -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 40%, transparent 100%);
   mask-image: linear-gradient(to bottom, transparent 0%, #000 40%, transparent 100%);
 }
@@ -95,22 +96,22 @@ body {
   position: absolute; top: -4%; bottom: 10%; z-index: -1;
   background:
     repeating-linear-gradient(90deg, transparent 0 0.55rem, rgba(0, 0, 0, 0.28) 0.55rem 0.68rem),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.7), rgba(244, 232, 218, 0.34) 30%, rgba(244, 232, 218, 0.16) 62%, rgba(0, 0, 0, 0.65));
+    linear-gradient(90deg, rgba(0, 0, 0, 0.7), rgba(255, 255, 255, 0.34) 30%, rgba(255, 255, 255, 0.16) 62%, rgba(0, 0, 0, 0.65));
   transform: perspective(800px) rotateY(var(--rot, 30deg));
   -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 16%, #000 72%, transparent 100%);
   mask-image: linear-gradient(to bottom, transparent 0%, #000 16%, #000 72%, transparent 100%);
 }
 .glass {
-  background: rgba(244, 232, 218, 0.07); border: 1px solid rgba(227, 185, 153, 0.28); border-radius: 1.5rem;
+  background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(156, 195, 255, 0.28); border-radius: 1.5rem;
   -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px);
-  box-shadow: 0 40px 70px -20px rgba(0, 0, 0, 0.65), 0 0 70px rgba(227, 185, 153, 0.1), inset 0 1px 0 rgba(244, 232, 218, 0.18);
+  box-shadow: 0 40px 70px -20px rgba(0, 0, 0, 0.65), 0 0 70px rgba(156, 195, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
 .tile {
-  background: rgba(244, 232, 218, 0.055); border: 1px solid rgba(227, 185, 153, 0.2); border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.055); border: 1px solid rgba(156, 195, 255, 0.2); border-radius: 1rem;
   box-shadow: 0 24px 40px -14px rgba(0, 0, 0, 0.55);
   transition: transform .3s ease, border-color .3s ease, background-color .3s ease;
 }
-.tile:hover { transform: translateY(-4px); border-color: var(--color-brass); background: rgba(244, 232, 218, 0.1); }
+.tile:hover { transform: translateY(-4px); border-color: var(--color-brass); background: rgba(255, 255, 255, 0.1); }
 @media (min-width: 1024px) {
   .tilt { transform: perspective(1400px) rotateY(-9deg) rotateX(4deg); transition: transform .5s ease; }
   .tilt:hover { transform: perspective(1400px) rotateY(0) rotateX(0); }
@@ -140,3 +141,27 @@ body {
 
 .skip-link { position: absolute; left: -999px; top: 0; z-index: 100; background: var(--color-ivory); color: var(--color-graphite); padding: .75rem 1rem; }
 .skip-link:focus { left: 0; }
+
+/* Light (white / pale blue) sections */
+.on-light { background: var(--color-white); color: var(--color-graphite); }
+.on-light .text-mist { color: #3d5a8f; }
+.on-light .tile { background: #ffffff; border-color: rgba(29, 79, 184, 0.18); box-shadow: 0 14px 30px -18px rgba(11, 37, 89, 0.35); }
+.on-light .tile:hover { border-color: var(--color-brass-deep); background: #f5f9ff; }
+.on-light .btn-solid { background: var(--color-brass-deep); border-color: var(--color-brass-deep); color: #fff; }
+.on-light .btn-solid:hover { background: var(--color-graphite); border-color: var(--color-graphite); }
+@media (max-width: 640px) { .btn { width: 100%; justify-content: center; } }
+img { max-width: 100%; height: auto; }
+
+/* Institutional flat look (reference: rada.gov.ua): no glow, 3D, blur; thin borders; square-ish corners */
+.serif { font-weight: 700; letter-spacing: -0.015em; line-height: 1.15; }
+.on-light { color: #333; }
+.on-light .serif, .on-light h2, .on-light h3 { color: #0e327e; }
+.on-light .text-mist { color: #4b5563; }
+.glass { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.22); border-radius: 0.5rem; backdrop-filter: none; -webkit-backdrop-filter: none; box-shadow: none; }
+.tile { border-radius: 0.5rem; box-shadow: none; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.2); }
+.tile:hover { transform: none; }
+.on-light .tile { background: #fff; border: 1px solid #cdd6e6; box-shadow: none; }
+.on-light .tile:hover { border-color: #004bc1; background: #fff; }
+.on-dark .btn-solid { background: var(--color-sun); border-color: var(--color-sun); color: #0e327e; }
+.on-dark .btn-solid:hover { background: #fff; border-color: #fff; }
+.tilt { transform: none !important; }
