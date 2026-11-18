@@ -14,7 +14,9 @@ export function Footer() {
       </div>
       <div className="wrap pb-24 pt-6 text-center lg:pb-8">
         <p className="border-t border-white/10 pt-5 text-[0.7rem] uppercase tracking-[0.3em] text-mist/70">
-          from <span className="font-bold tracking-[0.3em] text-ivory">BONSI</span>
+          <a href="https://bonsi.site" target="_blank" rel="noopener noreferrer" aria-label="BONSI — відкрити bonsi.site" className="inline-block py-1 hover:text-ivory">
+            from <span className="font-bold tracking-[0.3em] text-ivory">BONSI</span>
+          </a>
         </p>
       </div>
     </footer>
