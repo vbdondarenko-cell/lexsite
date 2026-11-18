@@ -3,6 +3,8 @@ import { Manrope } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { FloatingCall } from "@/components/FloatingCall";
+import { FeedbackPopup } from "@/components/FeedbackPopup";
+import { company } from "@/content/site";
 import { Footer } from "@/components/Footer";
 import { legalServiceJsonLd, siteUrl } from "@/lib/seo";
 
@@ -24,6 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main id="main">{children}</main>
         <Footer />
         <FloatingCall />
+        <FeedbackPopup phone={company.phones[0]!.display} email={company.email} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(legalServiceJsonLd()) }} />
       </body>
     </html>

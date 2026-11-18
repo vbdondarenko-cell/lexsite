@@ -5,7 +5,7 @@ import { consultationSchema, flattenErrors, type FieldErrors } from "@/lib/consu
 
 type Status = "idle" | "sending" | "sent" | "error";
 
-export function ContactForm({ fallbackPhone, email }: { fallbackPhone: string; email: string }) {
+export function ContactForm({ fallbackPhone, email, onSent }: { fallbackPhone: string; email: string; onSent?: () => void }) {
   const [errors, setErrors] = useState<FieldErrors>({});
   const [status, setStatus] = useState<Status>("idle");
   const [note, setNote] = useState("");
@@ -36,6 +36,7 @@ export function ContactForm({ fallbackPhone, email }: { fallbackPhone: string; e
       if (res.ok) {
         setStatus("sent");
         form.reset();
+        onSent?.();
         return;
       }
       if (res.status === 422) {
@@ -75,7 +76,7 @@ export function ContactForm({ fallbackPhone, email }: { fallbackPhone: string; e
       </label>
       <label className="field">
         <span>Опишіть ситуацію (необов’язково)</span>
-        <textarea className="input min-h-28 resize-y" name="message" rows={4} aria-invalid={!!errors.message} />
+        <textarea className="input min-h-20 resize-y" name="message" rows={3} aria-invalid={!!errors.message} />
         {errors.message && <p className="field-error">{errors.message}</p>}
       </label>
       {/* Honeypot */}

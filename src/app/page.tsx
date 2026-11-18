@@ -1,9 +1,8 @@
 import Image from "next/image";
-import { businessCategories, populationCategories, type Category } from "@/content/categories";
+import { businessCategories, populationCategories } from "@/content/categories";
 import { Scales } from "@/components/Decor";
 import { about, company, lawyer, stats } from "@/content/site";
-import { CategoryTile } from "@/components/CategoryTile";
-import { ContactForm } from "@/components/ContactForm";
+import { CategoryExplorer } from "@/components/CategoryExplorer";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
@@ -14,26 +13,6 @@ export const metadata = pageMeta({
 
 // Exact office point (49.4231852, 32.0974704, per client). dir/ opens turn-by-turn route from the visitor's location.
 const route = "https://www.google.com/maps/dir/?api=1&destination=49.4231852,32.0974704";
-
-function CategoryGrid({ id, label, list, cta }: { id: string; label: string; list: Category[]; cta?: boolean }) {
-  return (
-    <div className="mt-12">
-      <h3 id={id} className="kicker mb-6">{label}</h3>
-      <ul className="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
-        {list.map((c, i) => (
-          <CategoryTile key={c.title} index={i} category={c} />
-        ))}
-        {cta && (
-          <li className="rounded-lg bg-graphite p-5 text-ivory sm:p-6">
-            <span aria-hidden className="text-xl font-bold text-brass">→</span>
-            <p className="serif mt-3 text-[length:var(--text-h3)]">Не знайшли свою справу?</p>
-            <p className="mt-3 text-[0.95rem] leading-relaxed text-[#c9d8f2]">Безкоштовна консультація — опишіть ситуацію, і ми знайдемо рішення.</p>
-          </li>
-        )}
-      </ul>
-    </div>
-  );
-}
 
 export default function Home() {
   const [main] = company.phones;
@@ -149,28 +128,11 @@ export default function Home() {
       {/* 4. Case categories */}
       <section id="poslugy" className="on-light relative scroll-mt-20 overflow-hidden bg-ivory-deep">
         <Scales className="pointer-events-none absolute -right-10 top-10 hidden h-[26rem] w-[26rem] text-brass-deep opacity-[0.06] lg:block" />
-        <div className="wrap relative py-14 sm:py-20 lg:py-28">
+        <div className="wrap relative py-12 sm:py-16 lg:py-20">
           <p className="kicker mb-5">§ Категорії справ</p>
           <h2 className="serif max-w-[22ch] text-[length:var(--text-h1)]">З якими справами ми працюємо</h2>
           <p className="mt-6 max-w-2xl text-base text-mist sm:text-lg">Супроводжуємо клієнтів на всіх етапах — від консультації до повного вирішення справи в суді чи мирним шляхом.</p>
-          <CategoryGrid id="naselennyu" label="Для населення" list={populationCategories} />
-          <CategoryGrid id="biznesu" label="Для бізнесу" list={businessCategories} cta />
-        </div>
-      </section>
-
-      {/* 5. Feedback form */}
-      <section id="zvorotnij-zvyazok" className="on-dark scroll-mt-20 bg-graphite text-ivory">
-        <div className="wrap grid gap-10 py-14 sm:py-20 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16 lg:py-28">
-          <div>
-            <p className="kicker mb-5">§ Зворотний зв’язок</p>
-            <h2 className="serif max-w-[18ch] text-[length:var(--text-h1)]">Безкоштовна консультація</h2>
-            <p className="mt-6 max-w-lg text-base text-mist sm:text-lg">Залиште ім’я та номер телефону — ми передзвонимо й підкажемо, що робити у вашій ситуації.</p>
-            <address className="mt-8 space-y-1 not-italic text-mist">
-              <p>{company.address}</p>
-              <p><a href={route} className="text-sun underline underline-offset-4" target="_blank" rel="noopener noreferrer">Як дістатися на карті</a></p>
-            </address>
-          </div>
-          <ContactForm fallbackPhone={main!.display} email={company.email} />
+          <CategoryExplorer groups={[{ id: "naselennyu", label: "Для населення", list: populationCategories }, { id: "biznesu", label: "Для бізнесу", list: businessCategories }]} />
         </div>
       </section>
     </>
