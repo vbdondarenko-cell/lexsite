@@ -2,15 +2,16 @@ import Image from "next/image";
 import { businessCategories, populationCategories, type Category } from "@/content/categories";
 import { Scales } from "@/components/Decor";
 import { about, company, lawyer, stats } from "@/content/site";
+import { ContactForm } from "@/components/ContactForm";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
-  title: "Адвокат Черкаси — адвокатська компанія LEX",
+  title: "Адвокат Черкаси",
   description: "Адвокат у Черкасах: правова допомога для бізнесу та населення. Безкоштовна консультація. бул. Шевченка, 389, оф. 22.",
   path: "/",
 });
 
-const route = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent("Черкаси, бульвар Шевченка, 389")}`;
+const route = "https://www.google.com/maps/place/%D0%90%D0%B4%D0%B2%D0%BE%D0%BA%D0%B0%D1%82+%D0%A7%D0%B5%D1%80%D0%BA%D0%B0%D1%81%D0%B8/@49.4231852,32.0948955,17z/data=!3m1!4b1!4m6!3m5!1s0x40d14b384a208bad:0x944746df0103e502!8m2!3d49.4231852!4d32.0974704?hl=uk";
 
 function CategoryGrid({ id, label, list, cta }: { id: string; label: string; list: Category[]; cta?: boolean }) {
   return (
@@ -18,10 +19,11 @@ function CategoryGrid({ id, label, list, cta }: { id: string; label: string; lis
       <h3 id={id} className="kicker mb-6">{label}</h3>
       <ul className="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
         {list.map((c, i) => (
-          <li key={c.title} className="tile p-5 sm:p-6">
+          <li key={c.title} tabIndex={0} className="tile tile-cat relative p-5 sm:p-6">
             <span className="kicker">§ {String(i + 1).padStart(2, "0")}</span>
             <p className="serif mt-3 text-[length:var(--text-h3)]">{c.title}</p>
-            <p className="mt-3 text-[0.95rem] leading-relaxed text-mist">{c.description}</p>
+            <p className="tile-static mt-3 text-[0.95rem] leading-relaxed text-mist">{c.description}</p>
+            <div className="tile-more"><p className="serif text-lg">{c.title}</p><p className="mt-2 text-[0.95rem] leading-relaxed">{c.description}</p></div>
           </li>
         ))}
         {cta && (
@@ -88,7 +90,7 @@ export default function Home() {
       <section id="pro-nas" className="on-light scroll-mt-20">
         <div className="wrap py-14 sm:py-20 lg:py-28">
           <p className="kicker mb-5">§ Про нас</p>
-          <h2 className="serif max-w-[22ch] text-[length:var(--text-h1)]">Адвокатська компанія LEX</h2>
+          <h2 className="serif max-w-[22ch] text-[length:var(--text-h1)]">Адвокат</h2>
           <div className="mt-10 grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16">
             <div className="space-y-4 text-base leading-relaxed text-mist sm:text-lg">
               {about.paragraphs.map((p) => (<p key={p}>{p}</p>))}
@@ -156,6 +158,22 @@ export default function Home() {
           <p className="mt-6 max-w-2xl text-base text-mist sm:text-lg">Супроводжуємо клієнтів на всіх етапах — від консультації до повного вирішення справи в суді чи мирним шляхом.</p>
           <CategoryGrid id="naselennyu" label="Для населення" list={populationCategories} />
           <CategoryGrid id="biznesu" label="Для бізнесу" list={businessCategories} cta />
+        </div>
+      </section>
+
+      {/* 5. Feedback form */}
+      <section id="zvorotnij-zvyazok" className="on-dark scroll-mt-20 bg-graphite text-ivory">
+        <div className="wrap grid gap-10 py-14 sm:py-20 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16 lg:py-28">
+          <div>
+            <p className="kicker mb-5">§ Зворотний зв’язок</p>
+            <h2 className="serif max-w-[18ch] text-[length:var(--text-h1)]">Безкоштовна консультація</h2>
+            <p className="mt-6 max-w-lg text-base text-mist sm:text-lg">Залиште ім’я та номер телефону — ми передзвонимо й підкажемо, що робити у вашій ситуації.</p>
+            <address className="mt-8 space-y-1 not-italic text-mist">
+              <p>{company.address}</p>
+              <p><a href={route} className="text-sun underline underline-offset-4" target="_blank" rel="noopener noreferrer">Як дістатися на карті</a></p>
+            </address>
+          </div>
+          <ContactForm fallbackPhone={main!.display} />
         </div>
       </section>
     </>

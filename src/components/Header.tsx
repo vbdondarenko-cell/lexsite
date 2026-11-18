@@ -8,6 +8,7 @@ export const navLinks = [
   { href: "/#pro-nas", label: "Про нас" },
   { href: "/#advokat", label: "Про адвоката" },
   { href: "/#poslugy", label: "Категорії справ" },
+  { href: "/#zvorotnij-zvyazok", label: "Зворотний зв’язок" },
 ];
 
 export function Header() {
@@ -15,9 +16,9 @@ export function Header() {
   return (
     <header className="on-dark sticky top-0 z-50 h-[4.5rem] border-b border-white/10 bg-graphite text-ivory">
       <div className="wrap flex h-full items-center justify-between gap-6">
-        <Link href="/" className="flex items-center gap-3" aria-label="LEX — на головну">
+        <Link href="/" className="flex items-center gap-3" aria-label="Адвокат — на головну">
           <span aria-hidden className="grid h-10 w-10 place-items-center rounded-[0.6rem] bg-brass text-graphite"><Scales className="h-7 w-7" /></span>
-          <span className="serif text-[1.7rem] tracking-[0.14em]">LEX</span>
+          <span className="serif text-[1.35rem] tracking-wide">Адвокат</span>
         </Link>
         <nav aria-label="Основна навігація" className="hidden lg:block">
           <ul className="flex items-center gap-9 text-[0.8125rem] uppercase tracking-[0.14em]">

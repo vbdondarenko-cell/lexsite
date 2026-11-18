@@ -9,7 +9,7 @@ export function pageMeta(opts: { title: string; description: string; path: strin
     title: opts.title,
     description: opts.description,
     alternates: { canonical: url },
-    openGraph: { title: opts.title, description: opts.description, url, siteName: "LEX", locale: "uk_UA", type: "website" },
+    openGraph: { title: opts.title, description: opts.description, url, siteName: "Адвокат", locale: "uk_UA", type: "website" },
   };
 }
 

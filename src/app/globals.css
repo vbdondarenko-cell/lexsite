@@ -165,3 +165,17 @@ img { max-width: 100%; height: auto; }
 .on-dark .btn-solid { background: var(--color-sun); border-color: var(--color-sun); color: #0e327e; }
 .on-dark .btn-solid:hover { background: #fff; border-color: #fff; }
 .tilt { transform: none !important; }
+
+/* Category tiles: details appear on hover/focus on pointer devices; always visible on touch */
+.tile-static { display: block; }
+.tile-more { display: none; }
+@media (hover: hover) and (pointer: fine) {
+  .tile-static { display: none; }
+  .tile-more {
+    display: block; position: absolute; inset: 0; padding: 1.25rem; overflow: auto; border-radius: inherit;
+    background: var(--color-brass-deep); color: #fff; opacity: 0; pointer-events: none; transition: opacity .2s ease;
+  }
+  .tile:hover .tile-more, .tile:focus-visible .tile-more, .tile:focus-within .tile-more { opacity: 1; pointer-events: auto; }
+  .tile-cat { min-height: 10.5rem; cursor: default; }
+}
+.on-light .tile-more, .on-light .tile-more .serif, .tile-more p { color: #fff; }

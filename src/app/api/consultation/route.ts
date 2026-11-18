@@ -61,7 +61,7 @@ export async function POST(req: Request) {
     await transport.sendMail({
       from: LEAD_FROM_EMAIL || SMTP_USER,
       to: LEAD_TO_EMAIL,
-      subject: "Нова заявка на консультацію — сайт LEX",
+      subject: "Нова заявка на консультацію — сайт адвоката",
       text: `Ім’я: ${name}\nТелефон: ${phone}\nПовідомлення: ${message || "—"}`,
       html: `<p><b>Ім’я:</b> ${esc(name)}</p><p><b>Телефон:</b> ${esc(phone)}</p><p><b>Повідомлення:</b> ${esc(message || "—")}</p>`,
     });

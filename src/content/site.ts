@@ -1,8 +1,8 @@
 // Source: https://lex.ck.ua/ (snapshot 2026-11-04). Verbatim unless noted.
 
 export const company = {
-  name: "LEX",
-  legalName: "LEX",
+  name: "Адвокат",
+  legalName: "Адвокат Хегай О.Б.",
   tagline: "Правові послуги для населення і бізнесу",
   heroKicker: "ПРАВОВА ДОПОМОГА ДЛЯ БІЗНЕСУ ТА НАСЕЛЕННЯ",
   heroLead: "Вирішуємо проблеми будь якої складності та надаємо безкоштовну консультацію",
@@ -71,7 +71,7 @@ export const lawyer = {
   photo: "/images/hehai-oleh.jpg",
   photoAlt: "Адвокат Хегай Олег Борисович",
   teamPhoto: "/images/team.jpg",
-  teamPhotoAlt: "Команда адвокатської компанії LEX за робочим столом",
+  teamPhotoAlt: "Адвокати за робочим столом",
   certificate: "Свідоцтво про право на зайняття адвокатською діяльністю №4593 від 21.06.2011, видане Київською міською кваліфікаційно-дисциплінарною комісією адвокатури.",
   facts: [
     { value: "2007", label: "Початок кар’єри" },
