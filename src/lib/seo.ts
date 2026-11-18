@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { company } from "@/content/site";
 
-export const siteUrl = (process.env.SITE_URL ?? "http://localhost:3000").replace(/\/$/, "");
+export const siteUrl = (process.env.SITE_URL ?? process.env.RENDER_EXTERNAL_URL ?? "http://localhost:3000").replace(/\/$/, "");
 
 export function pageMeta(opts: { title: string; description: string; path: string }): Metadata {
   const url = `${siteUrl}${opts.path}`;

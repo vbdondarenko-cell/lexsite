@@ -179,3 +179,13 @@ img { max-width: 100%; height: auto; }
   .tile-cat { min-height: 10.5rem; cursor: default; }
 }
 .on-light .tile-more, .on-light .tile-more .serif, .tile-more p { color: #fff; }
+
+/* Touch: description collapsed until the tile is tapped */
+.tile-plus { display: none; }
+@media (hover: none), (pointer: coarse) {
+  .tile-static { display: none; }
+  .tile[data-open="true"] .tile-static { display: block; }
+  .tile-plus { display: block; position: absolute; right: 1.1rem; top: 1rem; font-size: 1.5rem; line-height: 1; color: var(--color-brass-deep); }
+  /* comfortable tap targets for inline links */
+  address a, .glass li > a, footer a { display: inline-block; padding-block: 0.45rem; }
+}

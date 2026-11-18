@@ -5,10 +5,11 @@ import { consultationSchema, flattenErrors, type FieldErrors } from "@/lib/consu
 
 type Status = "idle" | "sending" | "sent" | "error";
 
-export function ContactForm({ fallbackPhone }: { fallbackPhone: string }) {
+export function ContactForm({ fallbackPhone, email }: { fallbackPhone: string; email: string }) {
   const [errors, setErrors] = useState<FieldErrors>({});
   const [status, setStatus] = useState<Status>("idle");
   const [note, setNote] = useState("");
+  const [draft, setDraft] = useState<{ name: string; phone: string; message: string } | null>(null);
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -28,6 +29,7 @@ export function ContactForm({ fallbackPhone }: { fallbackPhone: string }) {
       return;
     }
     setErrors({});
+    setDraft({ name: payload.name, phone: payload.phone, message: payload.message });
     setStatus("sending");
     try {
       const res = await fetch("/api/consultation", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
@@ -86,7 +88,22 @@ export function ContactForm({ fallbackPhone }: { fallbackPhone: string }) {
       <button type="submit" className="btn btn-solid justify-center" disabled={status === "sending"}>
         {status === "sending" ? "Надсилаємо…" : "Надіслати заявку"}
       </button>
-      {status === "error" && <p role="alert" className="field-error">{note}</p>}
+      {status === "error" && (
+        <div role="alert" className="field-error space-y-3">
+          <p>{note}</p>
+          {draft && (
+            <a
+              className="btn btn-line justify-center"
+              href={`mailto:${email}?subject=${encodeURIComponent("Заявка з сайту")}&body=${encodeURIComponent(`Ім’я: ${draft.name}
+Телефон: ${draft.phone}
+
+${draft.message}`)}`}
+            >
+              Надіслати листом з вашої пошти
+            </a>
+          )}
+        </div>
+      )}
     </form>
   );
 }

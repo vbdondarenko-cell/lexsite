@@ -2,6 +2,7 @@ import Image from "next/image";
 import { businessCategories, populationCategories, type Category } from "@/content/categories";
 import { Scales } from "@/components/Decor";
 import { about, company, lawyer, stats } from "@/content/site";
+import { CategoryTile } from "@/components/CategoryTile";
 import { ContactForm } from "@/components/ContactForm";
 import { pageMeta } from "@/lib/seo";
 
@@ -11,7 +12,8 @@ export const metadata = pageMeta({
   path: "/",
 });
 
-const route = "https://www.google.com/maps/place/%D0%90%D0%B4%D0%B2%D0%BE%D0%BA%D0%B0%D1%82+%D0%A7%D0%B5%D1%80%D0%BA%D0%B0%D1%81%D0%B8/@49.4231852,32.0948955,17z/data=!3m1!4b1!4m6!3m5!1s0x40d14b384a208bad:0x944746df0103e502!8m2!3d49.4231852!4d32.0974704?hl=uk";
+// Exact office point (49.4231852, 32.0974704, per client). dir/ opens turn-by-turn route from the visitor's location.
+const route = "https://www.google.com/maps/dir/?api=1&destination=49.4231852,32.0974704";
 
 function CategoryGrid({ id, label, list, cta }: { id: string; label: string; list: Category[]; cta?: boolean }) {
   return (
@@ -19,12 +21,7 @@ function CategoryGrid({ id, label, list, cta }: { id: string; label: string; lis
       <h3 id={id} className="kicker mb-6">{label}</h3>
       <ul className="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
         {list.map((c, i) => (
-          <li key={c.title} tabIndex={0} className="tile tile-cat relative p-5 sm:p-6">
-            <span className="kicker">§ {String(i + 1).padStart(2, "0")}</span>
-            <p className="serif mt-3 text-[length:var(--text-h3)]">{c.title}</p>
-            <p className="tile-static mt-3 text-[0.95rem] leading-relaxed text-mist">{c.description}</p>
-            <div className="tile-more"><p className="serif text-lg">{c.title}</p><p className="mt-2 text-[0.95rem] leading-relaxed">{c.description}</p></div>
-          </li>
+          <CategoryTile key={c.title} index={i} category={c} />
         ))}
         {cta && (
           <li className="rounded-lg bg-graphite p-5 text-ivory sm:p-6">
@@ -173,7 +170,7 @@ export default function Home() {
               <p><a href={route} className="text-sun underline underline-offset-4" target="_blank" rel="noopener noreferrer">Як дістатися на карті</a></p>
             </address>
           </div>
-          <ContactForm fallbackPhone={main!.display} />
+          <ContactForm fallbackPhone={main!.display} email={company.email} />
         </div>
       </section>
     </>
