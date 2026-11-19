@@ -1,6 +1,7 @@
 node_modules
 .next
 out
+dist
 coverage
 playwright-report
 test-results
@@ -11,3 +12,6 @@ next-env.d.ts
 !.env.example
 .DS_Store
 Thumbs.db
+photo_*.jpg
+*.docx
+redo.txt

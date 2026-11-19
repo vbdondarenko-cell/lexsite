@@ -1,15 +1,9 @@
-"use client";
-
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 export function MobileNav({ links, phone }: { links: { href: string; label: string }[]; phone: { tel: string; display: string } }) {
   const [open, setOpen] = useState(false);
-  const pathname = usePathname();
   const btn = useRef<HTMLButtonElement>(null);
 
-  useEffect(() => setOpen(false), [pathname]);
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -36,9 +30,9 @@ export function MobileNav({ links, phone }: { links: { href: string; label: stri
           <ul className="wrap py-8">
             {links.map((l) => (
               <li key={l.href}>
-                <Link href={l.href} onClick={() => setOpen(false)} className="serif block rule py-5 text-[1.75rem]">
+                <a href={l.href} onClick={() => setOpen(false)} className="serif block rule py-5 text-[1.75rem]">
                   {l.label}
-                </Link>
+                </a>
               </li>
             ))}
             <li className="pt-8">

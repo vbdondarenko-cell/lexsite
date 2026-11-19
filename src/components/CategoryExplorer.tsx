@@ -1,11 +1,8 @@
-"use client";
-
 import { useState } from "react";
 import type { Category } from "@/content/categories";
 
 type Group = { id: string; label: string; list: Category[] };
 
-/** Compact picker: tabs (population / business) + chips; the description of the chosen case shows in one panel. */
 export function CategoryExplorer({ groups }: { groups: Group[] }) {
   const [gi, setGi] = useState(0);
   const [ci, setCi] = useState(0);
@@ -50,7 +47,7 @@ export function CategoryExplorer({ groups }: { groups: Group[] }) {
       <div id="cat-panel" role="tabpanel" aria-labelledby={`tab-${group.id}`} aria-live="polite" className="mt-5 rounded-lg border border-[#cdd6e6] border-l-4 border-l-brass-deep bg-white p-5 sm:p-6">
         <p className="serif text-[length:var(--text-h3)]">{current.title}</p>
         <p className="mt-2 max-w-3xl text-base leading-relaxed text-mist">{current.description}</p>
-        <a href="#zvorotnij-zvyazok" className="btn btn-solid mt-5">Безкоштовна консультація</a>
+        <a href={`tel:${"+380934880595"}`} className="btn btn-solid mt-5">Безкоштовна консультація</a>
       </div>
     </div>
   );

@@ -1,24 +1,14 @@
-import Image from "next/image";
 import { businessCategories, populationCategories } from "@/content/categories";
 import { Scales } from "@/components/Decor";
-import { about, company, lawyer, stats } from "@/content/site";
+import { about, company, lawyer, lawyer2, stats } from "@/content/site";
 import { CategoryExplorer } from "@/components/CategoryExplorer";
-import { pageMeta } from "@/lib/seo";
 
-export const metadata = pageMeta({
-  title: "Адвокат Черкаси",
-  description: "Адвокат у Черкасах: правова допомога для бізнесу та населення. Безкоштовна консультація. бул. Шевченка, 389, оф. 22.",
-  path: "/",
-});
-
-// Exact office point (49.4231852, 32.0974704, per client). dir/ opens turn-by-turn route from the visitor's location.
 const route = "https://www.google.com/maps/dir/?api=1&destination=49.4231852,32.0974704";
 
-export default function Home() {
+export function Home() {
   const [main] = company.phones;
   return (
     <>
-      {/* 1. Contacts first, per client */}
       <section id="kontakty" className="on-dark hero-stage scroll-mt-20 bg-slate text-ivory">
         <div className="wrap relative grid items-center gap-10 py-12 sm:py-16 lg:grid-cols-[1fr_1fr] lg:gap-16 lg:py-28">
           <div>
@@ -62,7 +52,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2. About us (text from lex.ck.ua) */}
       <section id="pro-nas" className="on-light scroll-mt-20">
         <div className="wrap py-14 sm:py-20 lg:py-28">
           <p className="kicker mb-5">§ Про нас</p>
@@ -91,48 +80,59 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. The lawyer */}
       <section id="advokat" className="on-dark relative scroll-mt-20 overflow-hidden bg-graphite text-ivory">
-        <div className="wrap relative grid gap-10 py-14 sm:py-20 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 lg:py-28">
-          <figure className="mx-auto w-full max-w-sm sm:max-w-md lg:max-w-none">
-            <div className="relative aspect-[3/4] overflow-hidden rounded-lg border border-brass/30">
-              <Image src={lawyer.photo} alt={lawyer.photoAlt} fill sizes="(min-width: 1024px) 36vw, 90vw" className="object-cover object-[50%_20%]" />
-            </div>
-            <figcaption className="mt-5">
-              <p className="serif text-[length:var(--text-h3)]">{lawyer.name}</p>
-              <p className="kicker mt-2">{lawyer.role} · {company.addressCity}</p>
-            </figcaption>
-          </figure>
-          <div>
-            <p className="kicker mb-5">§ Про адвоката</p>
-            <h2 className="serif max-w-[20ch] text-[length:var(--text-h1)]">{lawyer.name}</h2>
-            <dl className="mt-8 grid grid-cols-3 gap-3 sm:gap-4">
-              {lawyer.facts.map((f) => (
-                <div key={f.value} className="tile p-3 sm:p-5">
-                  <dt className="serif text-[length:var(--text-h2)] text-brass">{f.value}</dt>
-                  <dd className="mt-2 text-xs leading-snug text-mist sm:text-sm">{f.label}</dd>
+        <div className="wrap relative py-14 sm:py-20 lg:py-28">
+          <p className="kicker mb-5">§ Про адвокатів</p>
+          <h2 className="serif max-w-[22ch] text-[length:var(--text-h1)]">Наша команда</h2>
+
+          <div className="mt-12 grid gap-12 lg:grid-cols-2 lg:gap-10">
+            {[lawyer, lawyer2].map((l) => (
+              <div key={l.name} className="grid gap-8 sm:grid-cols-[200px_1fr]">
+                <figure className="mx-auto w-full max-w-[200px] sm:mx-0">
+                  <div className="relative aspect-[3/4] overflow-hidden rounded-lg border border-brass/30">
+                    <img src={l.photo} alt={l.photoAlt} className="absolute inset-0 h-full w-full object-cover object-[50%_20%]" />
+                  </div>
+                  <figcaption className="mt-4">
+                    <p className="serif text-[1.1rem] leading-snug">{l.name}</p>
+                    <p className="kicker mt-1">{l.role} · {company.addressCity}</p>
+                  </figcaption>
+                </figure>
+                <div>
+                  <dl className="grid grid-cols-3 gap-2">
+                    {l.facts.map((f) => (
+                      <div key={f.value} className="tile p-3">
+                        <dt className="serif text-[length:var(--text-h3)] text-brass">{f.value}</dt>
+                        <dd className="mt-1 text-xs leading-snug text-mist">{f.label}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                  <div className="mt-5 space-y-3 text-sm leading-relaxed text-mist sm:text-base">
+                    {l.paragraphs.map((p) => (<p key={p}>{p}</p>))}
+                  </div>
+                  {"certificate" in l && (
+                    <p className="mt-5 border-l-2 border-brass pl-4 text-xs leading-relaxed text-mist">{(l as typeof lawyer).certificate}</p>
+                  )}
                 </div>
-              ))}
-            </dl>
-            <div className="mt-8 space-y-4 text-base leading-relaxed text-mist sm:text-lg">
-              {lawyer.paragraphs.map((p) => (<p key={p}>{p}</p>))}
-            </div>
-            <p className="mt-8 border-l-2 border-brass pl-4 text-sm leading-relaxed text-mist">{lawyer.certificate}</p>
+              </div>
+            ))}
           </div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-lg border border-brass/30 lg:col-span-2">
-            <Image src={lawyer.teamPhoto} alt={lawyer.teamPhotoAlt} fill sizes="(min-width: 1280px) 80rem, 100vw" className="object-cover" />
+
+          <div className="relative mt-14 aspect-[16/7] overflow-hidden rounded-lg border border-brass/30">
+            <img src={lawyer.teamPhoto} alt={lawyer.teamPhotoAlt} className="absolute inset-0 h-full w-full object-cover" />
           </div>
         </div>
       </section>
 
-      {/* 4. Case categories */}
       <section id="poslugy" className="on-light relative scroll-mt-20 overflow-hidden bg-ivory-deep">
         <Scales className="pointer-events-none absolute -right-10 top-10 hidden h-[26rem] w-[26rem] text-brass-deep opacity-[0.06] lg:block" />
         <div className="wrap relative py-12 sm:py-16 lg:py-20">
           <p className="kicker mb-5">§ Категорії справ</p>
           <h2 className="serif max-w-[22ch] text-[length:var(--text-h1)]">З якими справами ми працюємо</h2>
           <p className="mt-6 max-w-2xl text-base text-mist sm:text-lg">Супроводжуємо клієнтів на всіх етапах — від консультації до повного вирішення справи в суді чи мирним шляхом.</p>
-          <CategoryExplorer groups={[{ id: "naselennyu", label: "Для населення", list: populationCategories }, { id: "biznesu", label: "Для бізнесу", list: businessCategories }]} />
+          <CategoryExplorer groups={[
+            { id: "naselennyu", label: "Для населення", list: populationCategories },
+            { id: "biznesu", label: "Для бізнесу", list: businessCategories },
+          ]} />
         </div>
       </section>
     </>

@@ -1,6 +1,5 @@
 import { company } from "@/content/site";
 
-/** Small, unobtrusive call button on phones/tablets. Desktop shows the number in the sticky header. */
 export function FloatingCall() {
   const phone = company.phones[0]!;
   return (
