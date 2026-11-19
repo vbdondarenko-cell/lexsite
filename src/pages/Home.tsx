@@ -2,6 +2,7 @@ import { businessCategories, populationCategories } from "@/content/categories";
 import { Scales } from "@/components/Decor";
 import { about, company, lawyer, lawyer2, stats } from "@/content/site";
 import { CategoryExplorer } from "@/components/CategoryExplorer";
+import { LawyersCarousel } from "@/components/LawyersCarousel";
 
 const route = "https://www.google.com/maps/dir/?api=1&destination=49.4231852,32.0974704";
 
@@ -12,6 +13,17 @@ export function Home() {
       <section id="kontakty" className="on-dark hero-stage scroll-mt-20 bg-slate text-ivory">
         <div className="wrap relative grid items-center gap-10 py-12 sm:py-16 lg:grid-cols-[1fr_1fr] lg:gap-16 lg:py-28">
           <div>
+            <a href="#advokat" className="reveal mb-7 inline-flex items-center gap-4" aria-label="Наші адвокати">
+              <span className="flex -space-x-3">
+                {[lawyer, lawyer2].map((l) => (
+                  <img key={l.name} src={l.photo} alt={l.photoAlt} width={60} height={60} className="h-[3.75rem] w-[3.75rem] rounded-full border-2 border-sun object-cover shadow-lg" style={{ objectPosition: l.avatarFocus }} />
+                ))}
+              </span>
+              <span className="text-sm leading-snug">
+                <span className="block font-semibold">{lawyer.shortName} · {lawyer2.shortName}</span>
+                <span className="block text-mist">Адвокати · {company.addressCity}</span>
+              </span>
+            </a>
             <p className="kicker reveal mb-5">§ Адвокат · {company.addressCity}</p>
             <h1 className="serif reveal text-[length:var(--text-display)]">
               Правові послуги для населення і <span className="text-sun">бізнесу</span>
@@ -83,43 +95,9 @@ export function Home() {
       <section id="advokat" className="on-dark relative scroll-mt-20 overflow-hidden bg-graphite text-ivory">
         <div className="wrap relative py-14 sm:py-20 lg:py-28">
           <p className="kicker mb-5">§ Про адвокатів</p>
-          <h2 className="serif max-w-[22ch] text-[length:var(--text-h1)]">Наша команда</h2>
+          <h2 className="serif max-w-[22ch] text-[length:var(--text-h1)]">Наші адвокати</h2>
 
-          <div className="mt-12 grid gap-12 lg:grid-cols-2 lg:gap-10">
-            {[lawyer, lawyer2].map((l) => (
-              <div key={l.name} className="grid gap-8 sm:grid-cols-[200px_1fr]">
-                <figure className="mx-auto w-full max-w-[200px] sm:mx-0">
-                  <div className="relative aspect-[3/4] overflow-hidden rounded-lg border border-brass/30">
-                    <img src={l.photo} alt={l.photoAlt} className="absolute inset-0 h-full w-full object-cover object-[50%_20%]" />
-                  </div>
-                  <figcaption className="mt-4">
-                    <p className="serif text-[1.1rem] leading-snug">{l.name}</p>
-                    <p className="kicker mt-1">{l.role} · {company.addressCity}</p>
-                  </figcaption>
-                </figure>
-                <div>
-                  <dl className="grid grid-cols-3 gap-2">
-                    {l.facts.map((f) => (
-                      <div key={f.value} className="tile p-3">
-                        <dt className="serif text-[length:var(--text-h3)] text-brass">{f.value}</dt>
-                        <dd className="mt-1 text-xs leading-snug text-mist">{f.label}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                  <div className="mt-5 space-y-3 text-sm leading-relaxed text-mist sm:text-base">
-                    {l.paragraphs.map((p) => (<p key={p}>{p}</p>))}
-                  </div>
-                  {"certificate" in l && (
-                    <p className="mt-5 border-l-2 border-brass pl-4 text-xs leading-relaxed text-mist">{(l as typeof lawyer).certificate}</p>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="relative mt-14 aspect-[16/7] overflow-hidden rounded-lg border border-brass/30">
-            <img src={lawyer.teamPhoto} alt={lawyer.teamPhotoAlt} className="absolute inset-0 h-full w-full object-cover" />
-          </div>
+          <LawyersCarousel lawyers={[lawyer, lawyer2]} city={company.addressCity} />
         </div>
       </section>
 

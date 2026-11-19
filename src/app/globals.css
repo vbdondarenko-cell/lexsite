@@ -131,7 +131,7 @@ body {
 .on-light .btn-solid { background: var(--color-brass-deep); border-color: var(--color-brass-deep); color: #fff; }
 .on-light .btn-solid:hover { background: var(--color-graphite); border-color: var(--color-graphite); }
 @media (max-width: 640px) { .btn { width: 100%; justify-content: center; } }
-img { max-width: 100%; height: auto; }
+@layer base { img { max-width: 100%; height: auto; } }
 
 .tile-static { display: block; }
 .tile-more { display: none; }
@@ -153,3 +153,6 @@ img { max-width: 100%; height: auto; }
   .tile-plus { display: block; position: absolute; right: 1.1rem; top: 1rem; font-size: 1.5rem; line-height: 1; color: var(--color-brass-deep); }
   address a, .glass li > a, footer a { display: inline-block; padding-block: 0.45rem; }
 }
+
+.no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }

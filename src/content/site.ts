@@ -51,6 +51,8 @@ export const lawyer2 = {
   role: "Адвокат",
   photo: "/images/davydiuk-andrii.jpg",
   photoAlt: "Адвокат Давидюк Андрій Юрійович",
+  shortName: "Давидюк А.Ю.",
+  avatarFocus: "53% 30%",
   facts: [
     { value: "2011", label: "Початок кар'єри" },
     { value: "2019", label: "Свідоцтво адвоката" },
@@ -69,6 +71,8 @@ export const lawyer = {
   role: "Адвокат",
   photo: "/images/hehai-oleh.jpg",
   photoAlt: "Адвокат Хегай Олег Борисович",
+  shortName: "Хегай О.Б.",
+  avatarFocus: "40% 25%",
   teamPhoto: "/images/team.jpg",
   teamPhotoAlt: "Адвокати за робочим столом",
   certificate: "Свідоцтво про право на зайняття адвокатською діяльністю №4593 від 21.06.2011, видане Київською міською кваліфікаційно-дисциплінарною комісією адвокатури.",
