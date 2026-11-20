@@ -27,8 +27,9 @@ jobs:
         run: |
           node -e '
             const fs = require("fs");
-            const cfg = { TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN || "", TELEGRAM_CHAT_ID: process.env.TELEGRAM_CHAT_ID || "" };
-            fs.writeFileSync("dist/lead-config.php", "<?php\nreturn json_decode(<<<'"'"'J'"'"'\n" + JSON.stringify(cfg) + "\nJ, true);\n");
+            const q = (v) => "\x27" + String(v || "").replace(/\\/g, "\\\\").replace(/\x27/g, "\\\x27") + "\x27";
+            const php = "<?php\nreturn array(\n  \x27TELEGRAM_BOT_TOKEN\x27 => " + q(process.env.TELEGRAM_BOT_TOKEN) + ",\n  \x27TELEGRAM_CHAT_ID\x27 => " + q(process.env.TELEGRAM_CHAT_ID) + ",\n);\n";
+            fs.writeFileSync("dist/lead-config.php", php);
           '
 
       - name: Install lftp
