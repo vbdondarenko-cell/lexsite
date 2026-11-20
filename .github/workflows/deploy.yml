@@ -20,6 +20,17 @@ jobs:
 
       - run: npm run build
 
+      - name: Write Telegram bot config (from GitHub secrets)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          node -e '
+            const fs = require("fs");
+            const cfg = { TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN || "", TELEGRAM_CHAT_ID: process.env.TELEGRAM_CHAT_ID || "" };
+            fs.writeFileSync("dist/api/config.php", "<?php\nreturn json_decode(<<<'"'"'J'"'"'\n" + JSON.stringify(cfg) + "\nJ, true);\n");
+          '
+
       - name: Install lftp
         run: sudo apt-get install -y lftp
 

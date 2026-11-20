@@ -7,6 +7,7 @@ export const navLinks = [
   { href: "#pro-nas", label: "Про нас" },
   { href: "#advokat", label: "Адвокати" },
   { href: "#poslugy", label: "Категорії справ" },
+  { href: "#zvorotnij-zvyazok", label: "Зворотний зв’язок" },
 ];
 
 export function Header() {

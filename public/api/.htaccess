@@ -1,0 +1,4 @@
+# Keep deploy-generated secrets unreachable from the web
+<Files "config.php">
+  Require all denied
+</Files>
