@@ -1,6 +1,6 @@
 <?php
 // Consultation / feedback form endpoint: delivers requests to a Telegram bot.
-// Secrets come from api/config.php (generated at deploy time from GitHub secrets) or from environment variables.
+// Secrets come from lead-config.php (generated at deploy time from GitHub secrets) or from environment variables.
 // Never commit real values.
 declare(strict_types=1);
 
@@ -14,7 +14,19 @@ function respond(int $status, array $body, array $headers = []): void {
     exit;
 }
 
-if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') respond(405, ['ok' => false, 'error' => 'method_not_allowed'], ['Allow: POST']);
+if (($_SERVER['REQUEST_METHOD'] ?? '') === 'GET') {
+    // Diagnostics: open /lead.php in a browser. Shows only whether PHP runs and whether secrets reached the server.
+    $c = is_file(__DIR__ . '/lead-config.php') ? (include __DIR__ . '/lead-config.php') : [];
+    $c = is_array($c) ? $c : [];
+    respond(200, [
+        'php' => PHP_VERSION,
+        'config_file' => is_file(__DIR__ . '/lead-config.php'),
+        'token_set' => ($c['TELEGRAM_BOT_TOKEN'] ?? '') !== '',
+        'recipients' => count(array_filter(array_map('trim', explode(',', (string)($c['TELEGRAM_CHAT_ID'] ?? ''))))),
+        'curl' => function_exists('curl_init'),
+    ]);
+}
+if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') respond(405, ['ok' => false, 'error' => 'method_not_allowed'], ['Allow: GET, POST']);
 
 // Same-origin check against cross-site posts
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
@@ -59,7 +71,7 @@ if ($len($message) > 2000) $errors['message'] = 'Повідомлення зан
 if (!$consent) $errors['consent'] = 'Потрібна згода на обробку персональних даних';
 if ($errors) respond(422, ['ok' => false, 'error' => 'validation', 'fields' => $errors]);
 
-$config = is_file(__DIR__ . '/config.php') ? (include __DIR__ . '/config.php') : [];
+$config = is_file(__DIR__ . '/lead-config.php') ? (include __DIR__ . '/lead-config.php') : [];
 $token = is_array($config) ? ($config['TELEGRAM_BOT_TOKEN'] ?? '') : '';
 $chatId = is_array($config) ? ($config['TELEGRAM_CHAT_ID'] ?? '') : '';
 if ($token === '') $token = (string)getenv('TELEGRAM_BOT_TOKEN');
