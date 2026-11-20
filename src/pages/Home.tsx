@@ -3,6 +3,7 @@ import { Scales } from "@/components/Decor";
 import { about, company, lawyer, lawyer2, stats } from "@/content/site";
 import { CategoryExplorer } from "@/components/CategoryExplorer";
 import { LawyersCarousel } from "@/components/LawyersCarousel";
+import { SocialLinks } from "@/components/SocialLinks";
 
 const route = "https://www.google.com/maps/dir/?api=1&destination=49.4231852,32.0974704";
 
@@ -60,6 +61,9 @@ export function Home() {
               ))}
             </ul>
             <a href={route} className="btn btn-line mt-6" target="_blank" rel="noopener noreferrer">Маршрут на карті</a>
+            <div className="mt-5">
+              <SocialLinks />
+            </div>
           </div>
         </div>
       </section>

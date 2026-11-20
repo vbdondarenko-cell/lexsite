@@ -19,9 +19,8 @@ export const company = {
   website: "lex.ck.ua",
   email: "ex_lege@i.ua",
   social: {
-    telegram: "https://t.me/@UaLexCk",
-    facebook: "https://www.facebook.com/profile.php?id=61583033188253",
-    instagram: "https://www.instagram.com/law_firm.lex/",
+    facebook: "https://www.facebook.com/ualexck/",
+    instagram: "https://www.instagram.com/lex.ck.ua/",
   },
 };
 

@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://lex.ck.ua/sitemap.xml
+
+# Host
+Host: lex.ck.ua
+
+# Crawl-delay (optional, polite crawling)
+Crawl-delay: 10

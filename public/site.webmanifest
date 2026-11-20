@@ -1,0 +1,23 @@
+{
+  "name": "Адвокат Черкаси — Хегай О.Б. та Давидюк А.Ю.",
+  "short_name": "Адвокат",
+  "description": "Правові послуги для населення і бізнесу у Черкасах",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0e327e",
+  "theme_color": "#0e327e",
+  "icons": [
+    {
+      "src": "/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "lang": "uk",
+  "dir": "ltr"
+}
