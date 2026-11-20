@@ -71,26 +71,36 @@ if ($token === '' || $chatId === '') {
 }
 
 $text = "Нова заявка з сайту\n\nІм’я: $name\nТелефон: $phone\nПовідомлення: " . ($message !== '' ? $message : '—');
-$payload = json_encode(['chat_id' => $chatId, 'text' => $text, 'disable_web_page_preview' => true], JSON_UNESCAPED_UNICODE);
 $url = 'https://api.telegram.org/bot' . $token . '/sendMessage';
 
-$ok = false;
-if (function_exists('curl_init')) {
-    $ch = curl_init($url);
-    curl_setopt_array($ch, [
-        CURLOPT_POST => true,
-        CURLOPT_POSTFIELDS => $payload,
-        CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_TIMEOUT => 8,
-    ]);
-    curl_exec($ch);
-    $ok = curl_getinfo($ch, CURLINFO_HTTP_CODE) === 200;
-    curl_close($ch);
-} else {
+// TELEGRAM_CHAT_ID may hold one or several Telegram user IDs, comma-separated (each must have pressed /start in the bot).
+$recipients = array_values(array_filter(array_map('trim', explode(',', $chatId)), fn($v) => $v !== ''));
+
+$send = function (string $to) use ($url, $text): bool {
+    $payload = json_encode(['chat_id' => $to, 'text' => $text, 'disable_web_page_preview' => true], JSON_UNESCAPED_UNICODE);
+    if (function_exists('curl_init')) {
+        $ch = curl_init($url);
+        curl_setopt_array($ch, [
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => $payload,
+            CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => 8,
+        ]);
+        curl_exec($ch);
+        $done = curl_getinfo($ch, CURLINFO_HTTP_CODE) === 200;
+        curl_close($ch);
+        return $done;
+    }
     $ctx = stream_context_create(['http' => ['method' => 'POST', 'header' => "Content-Type: application/json\r\n", 'content' => $payload, 'timeout' => 8, 'ignore_errors' => true]]);
     $res = @file_get_contents($url, false, $ctx);
-    $ok = $res !== false && (json_decode($res, true)['ok'] ?? false) === true;
+    return $res !== false && (json_decode($res, true)['ok'] ?? false) === true;
+};
+
+// Success if at least one recipient received the request.
+$ok = false;
+foreach ($recipients as $to) {
+    if ($send($to)) $ok = true;
 }
 
 if (!$ok) {
