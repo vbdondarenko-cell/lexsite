@@ -31,15 +31,22 @@ export function ContactForm({ fallbackPhone, email, onSent }: { fallbackPhone: s
     setStatus("sending");
     try {
       const res = await fetch("/api/consultation.php", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
-      if (res.ok) {
+      // Success only when the endpoint really answered with {"ok":true}. A 200 with anything else
+      // (e.g. the SPA index.html served for an unknown path) must NOT be shown as "sent".
+      let data: { ok?: boolean; fields?: FieldErrors } | null = null;
+      try {
+        data = (await res.json()) as { ok?: boolean; fields?: FieldErrors };
+      } catch {
+        data = null;
+      }
+      if (res.ok && data?.ok === true) {
         setStatus("sent");
         form.reset();
         onSent?.();
         return;
       }
-      if (res.status === 422) {
-        const data = (await res.json()) as { fields?: FieldErrors };
-        setErrors(data.fields ?? {});
+      if (res.status === 422 && data?.fields) {
+        setErrors(data.fields);
         setStatus("idle");
         return;
       }
